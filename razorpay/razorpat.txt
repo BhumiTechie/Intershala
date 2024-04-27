@@ -1,0 +1,14 @@
+
+5 create post route for  and copy verify payment signature
+1. Install razorpay. (npm i razorpay)
+2. Make instance to access resources from razorpay API
+3. Make checkout page (front-end bnalo)
+4. Make a post route for url = '/create/orderId' on index. js
+5. Copy order creation code and paste in index.js inside that route
+and add res.send(order).
+6. Add jQuery CDN on checkout page.
+7. Copy generate order code and paste in your checkout page inside
+Script.
+8. copy checkout option code and paste in your checkout page.
+9. copy call signature validation method code and paste in your checkout page inside options => handler => function and then call that method.
+10. copy verify payment signature code and paste in index.js inside ‘/api/payment/verify’ route (replace directory of require).
