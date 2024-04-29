@@ -2,10 +2,17 @@ require("dotenv").config({path : "./.env"});
 const express = require('express');
 const app = express();
 const { homepage } = require("./controllers/indexController");
+// DB CONNECTION 
+require("./models/database").connectDatabase();
 
 //logger 
 const logger = require('morgan');
 app.use(logger("tiny"));
+
+// BODY PARSER
+app.use(express.json());
+app.use(express.urlencoded({extended: false}))
+
 
 // routes
 app.use("/", require("./routes/indexRouter"));
