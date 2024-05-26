@@ -1,11 +1,16 @@
 const { catchAsyncError } = require("../middleware/catchAsyncError");
 let ErrorHandler = require('../utils/Errorhandling');
-const Student = require("../models/studentModel");
 const { sendToken } = require("../utils/SendToken");
+const Student = require("../models/studentModel");
 
 
 exports.homepage = catchAsyncError(async (req, res, next) => {
-    res.json({ message: "Home Page" });
+    res.json({ message: "Secure Home Page" });
+});
+
+exports.currentUser = catchAsyncError(async (req, res, next) => {
+    const student = await Student.findById(req.id).exec();
+    res.json({student});
 });
 
 exports.studentsignup = catchAsyncError(async (req, res, next) => {
@@ -31,6 +36,8 @@ exports.studentsignin = catchAsyncError(async (req, res, next) => {
 });
 
 exports.studentsignout = catchAsyncError(async (req, res, next) => {
+    res.clearCookie("token");
+    res.json({message: 'Successfully Signout!!'});
    
 });
 

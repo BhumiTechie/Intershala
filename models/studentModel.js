@@ -32,17 +32,16 @@ studentSchema.pre('save', async function (next) {
     }
 });
 
-studentSchema.methods.comparepassword = async function (enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password);
-}
+studentSchema.methods.comparepassword = async function (Password) {
+    return await bcrypt.compare(Password, this.password);
+};
 
 // TOKEN Created
-
-studentModel.methods.getjwttoken = function(password){
-    return; jwt.sign({id: this._id}, process.env.JWT_SECRET, {
-		expiresIn: process.env.JWT_EXPIRES ,
-	});
-}
+studentSchema.methods.getjwttoken = function() {
+    return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRES
+    });
+};
 
 const Student = mongoose.model("Student", studentSchema);
 
