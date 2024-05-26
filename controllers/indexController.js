@@ -41,3 +41,15 @@ exports.studentsignout = catchAsyncError(async (req, res, next) => {
    
 });
 
+exports.studentsendmail = catchAsyncError(async (req, res, next) => {
+    const student = await Student.findOne({email:req.body.email}).exec();
+    if(!student)
+        return next(new ErrorHandler("User not found with this email address", 404));
+
+      const url = `${req.protocol} : //${req.get("host")}/student/forget-link/${student._id}`;
+
+    
+    res.json({student , url});
+});
+
+
