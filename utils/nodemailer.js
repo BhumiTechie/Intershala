@@ -1,13 +1,14 @@
 const nodemailer = require('nodemailer');
+const ErrorHandler = require('../utils/Errorhandling');
 
-exports.sendmail = (email, url , next) =>{
+exports.sendMail = (email, url , next) =>{
 	const transporter = nodemailer.createTransport({
 		service : 'gmail',
 		host : "smtp.gmail.com",
 		port : 465,
 		auth :{
-			user : 'bhumika@gmail.com',
-			pass : "",
+			user : process.env.MAIL_EMAIL_ADDRESS,
+			pass : process.env.MAIL_PASSWORD,
 		}
 	});
       const mailOptions = {

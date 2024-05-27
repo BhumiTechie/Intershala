@@ -4,6 +4,7 @@ const { sendToken } = require("../utils/SendToken");
 const Student = require("../models/studentModel");
 
 
+
 exports.homepage = catchAsyncError(async (req, res, next) => {
     res.json({ message: "Secure Home Page" });
 });
@@ -35,6 +36,7 @@ exports.studentsignin = catchAsyncError(async (req, res, next) => {
    sendToken(student, 200, res)
 });
 
+
 exports.studentsignout = catchAsyncError(async (req, res, next) => {
     res.clearCookie("token");
     res.json({message: 'Successfully Signout!!'});
@@ -48,8 +50,26 @@ exports.studentsendmail = catchAsyncError(async (req, res, next) => {
 
       const url = `${req.protocol} : //${req.get("host")}/student/forget-link/${student._id}`;
 
-    
+    sendMail(req, res, next , url);
+
+    student.resetPasswordToken = "1";
+    await student.save();
     res.json({student , url});
+});
+
+
+exports.studentforgetlink = catchAsyncError(async (req, res, next) => {
+    const student = await Student.findById(req.params.id).exec();
+    
+    if (!student) {
+        return next(new ErrorHandler("User not found with this ID", 404));
+    }
+
+    student.password = req.body.password;
+    await student.save();
+    res.status(200).json({
+        message: "Password has been reset successfully",
+    });
 });
 
 
