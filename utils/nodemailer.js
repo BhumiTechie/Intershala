@@ -1,11 +1,11 @@
 const nodemailer = require('nodemailer');
 const ErrorHandler = require('../utils/Errorhandling');
 
-exports.sendMail = (email, url , next) =>{
+exports.sendmail = (req, res, next, url) =>{
 	const transporter = nodemailer.createTransport({
 		service : 'gmail',
 		host : "smtp.gmail.com",
-		port : 465,
+		post : 465,
 		auth :{
 			user : process.env.MAIL_EMAIL_ADDRESS,
 			pass : process.env.MAIL_PASSWORD,
@@ -19,7 +19,7 @@ exports.sendMail = (email, url , next) =>{
          html : `<h1>Please click on the link to reset your password </h1> <a href= "${url}">password reset</a>`,
 		  
 	  };
-	  transporter.sendMail(mailOptions, (error, info)=>{
+	  transporter.sendmail(mailOptions, (error, info)=>{
 		if(error) return next(new ErrorHandler(err , 500));
 		console.log(info);
 		return res.status(200).json({
