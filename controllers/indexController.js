@@ -82,6 +82,8 @@ exports.studentresetpassword = catchAsyncError(async (req, res, next) => {
         student.password = req.body.password;
            await student.save();
        sendToken(student, 201, res)
+       tString 
+       
 });
 
 
