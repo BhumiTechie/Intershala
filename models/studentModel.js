@@ -3,6 +3,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const studentSchema = new mongoose.Schema({
+     firstname : String,
+     lastname : String,
+     avatar : String,
+     contact : String,
+     city: String ,
+     gender : String,
     email: {
         type: String,
         unique: true, // unique used for not duplicate records
