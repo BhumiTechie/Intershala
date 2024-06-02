@@ -3,7 +3,11 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const studentSchema = new mongoose.Schema({
-     firstname : String,
+     firstname : {
+        type : String,
+        required: [true, "Firstname is required"],
+        maxlength : [4, "First name should be at least 4 characters"]
+     },
      lastname : String,
      avatar : String,
      contact : String,
